@@ -11,8 +11,6 @@ export class AppService {
       return 'No user from google';
     }
 
-    // req.redirect('https://www.google.com')
-
     return {
       message: 'User data from google',
       user: req.user,
