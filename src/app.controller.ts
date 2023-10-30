@@ -1,5 +1,6 @@
-import { Controller, Delete, Get, Post } from '@nestjs/common';
+import { Controller, Get, Request, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
+import { GoogleOAuthGuard } from './auth/google-oauth.guard';
 
 @Controller("app")
 export class AppController {
@@ -8,5 +9,11 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('google-redirect')
+  @UseGuards(GoogleOAuthGuard)
+  googleAuthRedirect(@Request() req) {
+    return this.appService.googleLogin(req);
   }
 }
