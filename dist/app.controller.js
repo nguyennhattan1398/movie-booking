@@ -8,10 +8,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppController = void 0;
 const common_1 = require("@nestjs/common");
 const app_service_1 = require("./app.service");
+const google_oauth_guard_1 = require("./auth/google-oauth.guard");
 let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
@@ -19,14 +23,8 @@ let AppController = class AppController {
     getHello() {
         return this.appService.getHello();
     }
-    addTodo() {
-        return this.appService.addTodo();
-    }
-    updateTodo() {
-        return this.appService.updateTodo();
-    }
-    deleteTodo() {
-        return this.appService.deleteTodo();
+    googleAuthRedirect(req) {
+        return this.appService.googleLogin(req);
     }
 };
 exports.AppController = AppController;
@@ -37,25 +35,15 @@ __decorate([
     __metadata("design:returntype", String)
 ], AppController.prototype, "getHello", null);
 __decorate([
-    (0, common_1.Post)("/add"),
+    (0, common_1.Get)('google-redirect'),
+    (0, common_1.UseGuards)(google_oauth_guard_1.GoogleOAuthGuard),
+    __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppController.prototype, "addTodo", null);
-__decorate([
-    (0, common_1.Post)("/update"),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppController.prototype, "updateTodo", null);
-__decorate([
-    (0, common_1.Delete)("/delete"),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", String)
-], AppController.prototype, "deleteTodo", null);
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "googleAuthRedirect", null);
 exports.AppController = AppController = __decorate([
-    (0, common_1.Controller)("sample-app"),
+    (0, common_1.Controller)("app"),
     __metadata("design:paramtypes", [app_service_1.AppService])
 ], AppController);
 //# sourceMappingURL=app.controller.js.map

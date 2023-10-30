@@ -12,14 +12,14 @@ let AppService = class AppService {
     getHello() {
         return 'Hello World!';
     }
-    addTodo() {
-        return 'add Todo!';
-    }
-    updateTodo() {
-        return 'update Todo!';
-    }
-    deleteTodo() {
-        return 'delete Todo!';
+    googleLogin(req) {
+        if (!req.user) {
+            return 'No user from google';
+        }
+        return {
+            message: 'User data from google',
+            user: req.user,
+        };
     }
 };
 exports.AppService = AppService;

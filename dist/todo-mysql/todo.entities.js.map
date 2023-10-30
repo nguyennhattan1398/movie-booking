@@ -1,1 +1,0 @@
-{"version":3,"file":"todo.entities.js","sourceRoot":"","sources":["../../src/todo-mysql/todo.entities.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qCAAiE;AAG1D,IAAM,UAAU,GAAhB,MAAM,UAAU;CAMtB,CAAA;AANY,gCAAU;AAEZ;IADN,IAAA,gCAAsB,GAAE;;sCACP;AAGlB;IADC,IAAA,gBAAM,GAAE;;2CACO;qBALP,UAAU;IADtB,IAAA,gBAAM,GAAE;GACI,UAAU,CAMtB"}

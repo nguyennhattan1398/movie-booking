@@ -7,36 +7,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
-const todo_module_1 = require("./todo-mysql/todo.module");
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
-const typeorm_1 = require("@nestjs/typeorm");
 const mongoose_1 = require("@nestjs/mongoose");
-const todo_module_2 = require("./todo-mongo/todo.module");
+const config_1 = require("@nestjs/config");
+const google_strategy_1 = require("./auth/google.strategy");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'mysql',
-                host: 'localhost',
-                port: 3306,
-                username: 'root',
-                password: 'admin123',
-                database: 'todo-list',
-                entities: [],
-                synchronize: true,
-                autoLoadEntities: true
-            }),
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017', { dbName: 'todo-list' }),
-            todo_module_2.TodoListMongoModule,
-            todo_module_1.TodoListMySqlModule,
+            config_1.ConfigModule.forRoot(),
+            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017', { dbName: 'movie-booking' }),
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [app_service_1.AppService, google_strategy_1.GoogleStrategy],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
