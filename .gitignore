@@ -23,5 +23,4 @@ docker-compose.yml
 docker-compose.debug.yml
 
 .env
-!.yarn
-!.yarn/*
+.yarn
