@@ -1,5 +1,5 @@
-node_modules
-dist
+node_modules/*
+dist/*
 .idea
 env-config.yml
 yarn-error.log
@@ -21,3 +21,7 @@ lerna-debug.log
 coverage
 docker-compose.yml
 docker-compose.debug.yml
+
+.env
+.yarn
+.yarn/*
