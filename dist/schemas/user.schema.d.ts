@@ -8,6 +8,8 @@ export declare class User {
     class?: string;
     birth?: Date;
     point: number;
+    username: string;
+    password: string;
 }
 export declare const UserSchema: mongoose.Schema<User, mongoose.Model<User, any, any, any, mongoose.Document<unknown, any, User> & User & {
     _id: mongoose.Types.ObjectId;

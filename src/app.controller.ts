@@ -11,9 +11,9 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Get('google-redirect')
-  @UseGuards(GoogleOAuthGuard)
-  googleAuthRedirect(@Request() req: any) {
-    return this.appService.googleLogin(req);
-  }
+  // @Get('google-redirect')
+  // @UseGuards(GoogleOAuthGuard)
+  // googleAuthRedirect(@Request() req: any) {
+  //   return this.appService.googleLogin(req);
+  // }
 }

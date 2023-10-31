@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
+const user_module_1 = require("./user/user.module");
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
@@ -14,18 +15,20 @@ const mongoose_1 = require("@nestjs/mongoose");
 const config_1 = require("@nestjs/config");
 const google_strategy_1 = require("./auth/google.strategy");
 const auth_module_1 = require("./auth/auth.module");
+const jwt_1 = require("@nestjs/jwt");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            user_module_1.UserModule,
             config_1.ConfigModule.forRoot(),
             mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017', { dbName: 'movie-booking' }),
             auth_module_1.AuthModule
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, google_strategy_1.GoogleStrategy],
+        providers: [app_service_1.AppService, google_strategy_1.GoogleStrategy, jwt_1.JwtService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

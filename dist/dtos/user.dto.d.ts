@@ -17,3 +17,7 @@ export declare class UpdateUserDTO {
 export declare class DeleteUserDTO {
     id: string;
 }
+export declare class UserLoginDTO {
+    username: string;
+    password: string;
+}

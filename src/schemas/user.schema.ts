@@ -25,6 +25,12 @@ export class User {
 
     @Prop({ default: 0 })
     point: number;
+
+    @Prop()
+    username: string;
+
+    @Prop()
+    password: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
