@@ -1,5 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateUserDTO, UserLoginDTO } from 'src/dtos/user.dto';
+import { CreateUserDTO, UpdateUserDTO, UserLoginDTO } from 'src/dtos/user.dto';
 import { User } from 'src/schemas/user.schema';
 import { UserService } from './user.service';
 
@@ -7,14 +7,30 @@ import { UserService } from './user.service';
 export class UserController {
     constructor(private readonly userService: UserService) { }
 
+    @Post("/login")
     userLogin(userLoginDTO: UserLoginDTO): Promise<User> {
         const user = this.userService.findUserByUsername(userLoginDTO.username);
         return user;
     }
 
-    @Post("/add")
-    async addUser(@Body() user: CreateUserDTO): Promise<User> {
-        console.log("🚀 ~ file: user.controller.ts:21 ~ UserController ~ addUser ~ user:", user)
-        return await this.userService.addUser(user)
+    @Post("/create")
+    async createUser(@Body() user: CreateUserDTO): Promise<User> {
+        return await this.userService.createUser(user)
+    }
+
+    @Post("/update")
+    async updateUser(@Body() user: UpdateUserDTO): Promise<User> {
+        return await this.userService.updateUser(user)
+    }
+
+    @Post("/delete")
+    async deleteUser(@Body() userId: string): Promise<boolean> {
+        return await this.userService.deleteUser(userId)
+    }
+
+    @Post("/block")
+    async blockUser(@Body() userId: string): Promise<boolean> {
+        return await this.userService.blockUser(userId)
     }
 }
+

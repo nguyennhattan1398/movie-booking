@@ -6,7 +6,7 @@ export type UserDocument = User & Document;
 @Schema()
 export class User {
     @Prop()
-    user_id: mongoose.Schema.Types.ObjectId;
+    id: mongoose.Schema.Types.ObjectId;
 
     @Prop({ required: true })
     name: string;
@@ -31,6 +31,9 @@ export class User {
 
     @Prop()
     password: string;
+
+    @Prop({ default: true })
+    enabled: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
