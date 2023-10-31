@@ -31,6 +31,13 @@ let UserService = class UserService {
             return user;
         return null;
     }
+    async addUser(data) {
+        const user = await this.userModel.create(data);
+        return user;
+    }
+    async deleteUser(userId) {
+        return await this.userModel.deleteOne({ id: userId }) ? true : false;
+    }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([

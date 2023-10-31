@@ -1,18 +1,20 @@
-import { Controller } from '@nestjs/common';
-import { UserLoginDTO } from 'src/dtos/user.dto';
+import { Body, Controller, Post } from '@nestjs/common';
+import { CreateUserDTO, UserLoginDTO } from 'src/dtos/user.dto';
 import { User } from 'src/schemas/user.schema';
 import { UserService } from './user.service';
 
-@Controller()
+@Controller("user")
 export class UserController {
     constructor(private readonly userService: UserService) { }
 
     userLogin(userLoginDTO: UserLoginDTO): Promise<User> {
-
-        return;
+        const user = this.userService.findUserByUsername(userLoginDTO.username);
+        return user;
     }
 
-    async findUserByUsername(username: string): Promise<User> {
-        return await this.userService.findUserByUsername(username);
+    @Post("/add")
+    async addUser(@Body() user: CreateUserDTO): Promise<User> {
+        console.log("🚀 ~ file: user.controller.ts:21 ~ UserController ~ addUser ~ user:", user)
+        return await this.userService.addUser(user)
     }
 }

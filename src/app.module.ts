@@ -13,7 +13,8 @@ import { JwtService } from '@nestjs/jwt';
     UserModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot('mongodb://localhost:27017', { dbName: 'movie-booking' }),
-    AuthModule
+    AuthModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService, GoogleStrategy, JwtService],

@@ -25,7 +25,8 @@ exports.AppModule = AppModule = __decorate([
             user_module_1.UserModule,
             config_1.ConfigModule.forRoot(),
             mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017', { dbName: 'movie-booking' }),
-            auth_module_1.AuthModule
+            auth_module_1.AuthModule,
+            user_module_1.UserModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService, google_strategy_1.GoogleStrategy, jwt_1.JwtService],
