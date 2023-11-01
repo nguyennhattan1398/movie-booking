@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateUserDTO, UpdateUserDTO } from 'src/dtos/user.dto';
+import { BlockUserDTO, CreateUserDTO, DeleteUserDTO, UpdateUserDTO } from 'src/dtos/user.dto';
 import { User, UserDocument } from 'src/schemas/user.schema';
+import { ObjectIdType } from 'src/utils/type.util';
 
 @Injectable()
 export class UserService {
@@ -28,17 +29,17 @@ export class UserService {
         return user;
     }
 
-    async updateUser(data: UpdateUserDTO): Promise<UserDocument> {
-        await this.userModel.updateOne({ user_id: data.id }, data)
-        const user = await this.userModel.findOne({ _id: data.id });
+    async updateUser(data: UpdateUserDTO): Promise<User> {
+        await this.userModel.updateOne({ _id: ObjectIdType(data._id) }, data)
+        const user = await this.userModel.findOne({ _id: ObjectIdType(data._id) });
         return user;
     }
 
-    async deleteUser(userId: string): Promise<boolean> {
-        return await this.userModel.deleteOne({ id: userId }) ? true : false
+    async deleteUser(data: DeleteUserDTO): Promise<boolean> {
+        return await this.userModel.deleteOne({ _id: ObjectIdType(data._id) }) ? true : false
     }
 
-    async blockUser(userId: string): Promise<boolean> {
-        return await this.userModel.updateOne({ id: userId }, { enabled: false }) ? true : false
+    async blockUser(data: BlockUserDTO): Promise<boolean> {
+        return await this.userModel.updateOne({ _id: ObjectIdType(data._id) }, { enabled: false }) ? true : false
     }
 }

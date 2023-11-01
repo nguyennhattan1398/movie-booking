@@ -1,4 +1,5 @@
 export class CreateUserDTO {
+    // _id?: string;
     name: string;
     email?: string;
     phone: string;
@@ -9,7 +10,7 @@ export class CreateUserDTO {
 }
 
 export class UpdateUserDTO {
-    id: string;
+    _id: string;
     name?: string;
     email?: string;
     phone?: string;
@@ -20,9 +21,12 @@ export class UpdateUserDTO {
 }
 
 export class DeleteUserDTO {
-    id: string;
+    _id: string;
 }
 
+export class BlockUserDTO {
+    _id: string;
+}
 export class UserLoginDTO {
     username: string;
     password: string;
