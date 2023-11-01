@@ -17,7 +17,7 @@ export class User {
     @Prop()
     email?: string;
 
-    @Prop({ required: true })
+    @Prop()
     phone: string;
 
     @Prop({ enum: ["Bronze", "Silver", "Gold", "Diamond", "Ruby"], default: "Bronze", required: true })
@@ -37,6 +37,9 @@ export class User {
 
     @Prop({ default: true })
     enabled: boolean;
+
+    @Prop()
+    avt: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -1,12 +1,11 @@
 export class CreateUserDTO {
-    // _id?: string;
     name: string;
-    email?: string;
-    phone: string;
+    email: string;
+    phone?: string;
     class?: string;
     birth?: Date;
-    point: number;
     enabled?: boolean;
+    avt: string;
 }
 
 export class UpdateUserDTO {
