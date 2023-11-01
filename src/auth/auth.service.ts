@@ -1,7 +1,7 @@
-// auth.service.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDTO } from 'src/dtos/user.dto';
+import { PayloadJWT, UserInterface } from 'src/interfaces/user.interface';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -18,20 +18,25 @@ export class AuthService {
         };
     }
 
-    async googleLoginCallback(req) {
+    async googleLoginCallback(@Req() req): Promise<PayloadJWT> {
         const findUser = await this.userService.findUserByUsername(req.user.email);
-        console.log("🚀 ~ file: auth.service.ts:23 ~ AuthService ~ googleLoginCallback ~ findUser:", findUser)
         if (!findUser && req.user) {
-            const newUser: CreateUserDTO = {
+            const user: CreateUserDTO = {
                 name: req.user.displayName,
                 email: req.user.email,
-                avt: req.user.photos
+                avt: req.user.picture
             };
-            await this.userService.createUser(newUser)
-            const jwt = this.jwtService.sign({ id: "1" })
-            return jwt;
+            const newUser = await this.userService.createUser(user)
+            const jwt = this.jwtService.sign({ email: req.user.email })
+            return {
+                token: jwt,
+                user_info: newUser
+            };
         }
-        const jwt = this.jwtService.sign({ id: "2" })
-        return jwt;
+        const jwt = this.jwtService.sign({ email: findUser.email })
+        return {
+            token: jwt,
+            user_info: findUser
+        };
     }
 }

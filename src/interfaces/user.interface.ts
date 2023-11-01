@@ -1,5 +1,5 @@
-import { Document } from 'mongoose';
-export interface UserInterface extends Document {
+import { User } from 'src/schemas/user.schema';
+export interface UserInterface {
     readonly _id: string;
     readonly name: string;
     readonly email: string;
@@ -9,4 +9,9 @@ export interface UserInterface extends Document {
     readonly point: string;
     readonly username: string;
     readonly password: string;
+}
+
+export interface PayloadJWT {
+    token: string;
+    user_info: User
 }
