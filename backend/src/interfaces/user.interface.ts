@@ -12,7 +12,9 @@ export interface UserInterface {
 }
 
 export interface PayloadJWT {
-    token: string;
-    refreshToken: string;
+    token_info: {
+        token: string;
+        refreshToken: string;
+    },
     user_info: User
 }

@@ -3,7 +3,7 @@ import { CreateUserDTO } from 'src/dtos/user.dto';
 import { PayloadJWT } from 'src/interfaces/user.interface';
 import { UserService } from 'src/user/user.service';
 import { sign, verify } from 'jsonwebtoken';
-import { JWT_Info, JWT_Payload } from 'src/dtos/jwt.dto';
+import { JWT_Payload } from 'src/dtos/jwt.dto';
 import { JwtService } from '@nestjs/jwt';
 import { config } from 'dotenv';
 
@@ -36,16 +36,20 @@ export class AuthService {
             const jwt = this.createJwt({ email: req.user.email })
             const refreshToken = this.createJwt({ email: req.user.email })
             return {
-                token: jwt,
-                refreshToken,
+                token_info: {
+                    token: jwt,
+                    refreshToken,
+                },
                 user_info: newUser
             };
         }
         const jwt = this.createJwt({ email: findUser.email })
         const refreshToken = this.createJwt({ email: req.user.email })
         return {
-            token: jwt,
-            refreshToken,
+            token_info: {
+                token: jwt,
+                refreshToken,
+            },
             user_info: findUser
         };
     }
