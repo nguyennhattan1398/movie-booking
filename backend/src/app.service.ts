@@ -12,11 +12,9 @@ export class AppService {
     if (!req.user) {
       return 'No user from google';
     }
-    console.log("🚀 ~ file: app.service.ts:18 ~ AppService ~ googleLogin ~ req.user:", req.user)
 
     const payload = { username: req.user.email, sub: req.user.firstName };
     const jwt = this.jwtService.sign(payload);
-    console.log("🚀 ~ file: app.service.ts:19 ~ AppService ~ googleLogin ~ jwt:", jwt)
     return {
       message: 'User data from google',
       // data: ,

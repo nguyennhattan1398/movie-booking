@@ -1,8 +1,13 @@
 import { Injectable, Req } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { CreateUserDTO } from 'src/dtos/user.dto';
 import { PayloadJWT } from 'src/interfaces/user.interface';
 import { UserService } from 'src/user/user.service';
+import { sign, verify } from 'jsonwebtoken';
+import { JWT_Info, JWT_Payload } from 'src/dtos/jwt.dto';
+import { JwtService } from '@nestjs/jwt';
+import { config } from 'dotenv';
+
+config();
 
 @Injectable()
 export class AuthService {
@@ -13,8 +18,9 @@ export class AuthService {
 
     async googleLogin(user: any) {
         const payload = { username: user.email, sub: user.id };
+
         return {
-            access_token: this.jwtService.sign(payload),
+            access_token: sign(payload, process.env.JWT_KEY, { algorithm: 'RS256' }),
         };
     }
 
@@ -27,20 +33,28 @@ export class AuthService {
                 avt: req.user.picture
             };
             const newUser = await this.userService.createUser(user)
-            const jwt = this.jwtService.sign({ email: req.user.email })
-            const refreshToken = this.jwtService.sign({ email: req.user.email })
+            const jwt = this.createJwt({ email: req.user.email })
+            const refreshToken = this.createJwt({ email: req.user.email })
             return {
                 token: jwt,
                 refreshToken,
                 user_info: newUser
             };
         }
-        const jwt = this.jwtService.sign({ email: findUser.email })
-        const refreshToken = this.jwtService.sign({ email: req.user.email })
+        const jwt = this.createJwt({ email: findUser.email })
+        const refreshToken = this.createJwt({ email: req.user.email })
         return {
             token: jwt,
             refreshToken,
             user_info: findUser
         };
+    }
+
+    createJwt(info: JWT_Payload): string {
+        return sign(info, process.env.JWT_KEY, { algorithm: "HS256" })
+    }
+
+    async verifyToken(token: string) {
+        verify(token, process.env.JWT_KEY);
     }
 }

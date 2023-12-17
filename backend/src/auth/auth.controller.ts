@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Req, Res } from '@nestjs/common';
+import { Controller, Get, UseGuards, Req, Res, Param } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { GoogleOAuthGuard } from './google/google-oauth.guard';
 
@@ -15,5 +15,10 @@ export class AuthController {
     @UseGuards(GoogleOAuthGuard)
     async googleLoginCallback(@Req() req) {
         return await this.authService.googleLoginCallback(req)
+    }
+
+    @Get('verify-token/:token')
+    async verifyToken(@Param("token") token: string) {
+        return await this.authService.verifyToken(token);
     }
 }
